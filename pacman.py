@@ -353,7 +353,7 @@ class Game:
                 if tile == TileType.WALL.value:
                     # Рисуем стену в стиле Pacman с объемом
                     wall_rect = pygame.Rect(screen_x, screen_y,
-                                             TILE_SIZE, TILE_SIZE)
+                                            TILE_SIZE, TILE_SIZE)
                     pygame.draw.rect(self.screen, BLUE_WALL, wall_rect)
 
                     # Добавляем светлую границу для объема
@@ -361,7 +361,7 @@ class Game:
 
                     # Внутренняя подсветка
                     inner_rect = pygame.Rect(screen_x + 2, screen_y + 2,
-                                              TILE_SIZE - 4, TILE_SIZE - 4)
+                                             TILE_SIZE - 4, TILE_SIZE - 4)
                     pygame.draw.rect(self.screen, LIGHT_BLUE, inner_rect, 1)
                 x += 1
             y += 1
@@ -372,21 +372,18 @@ class Game:
         i = 0
         while i < len(self.dots):
             x, y = self.dots[i]
-            screen_x = (self.map_offset_x + x * TILE_SIZE +
-                        TILE_SIZE // 2)
-            screen_y = (self.map_offset_y + y * TILE_SIZE +
-                        TILE_SIZE // 2)
-            pygame.draw.circle(self.screen, DOT_YELLOW, (screen_x, screen_y), 2)
+            screen_x = self.map_offset_x + x * TILE_SIZE + TILE_SIZE // 2
+            screen_y = self.map_offset_y + y * TILE_SIZE + TILE_SIZE // 2
+            pygame.draw.circle(self.screen, DOT_YELLOW,
+                               (screen_x, screen_y), 2)
             i += 1
 
         # Большие точки с анимацией
         i = 0
         while i < len(self.big_dots):
             x, y = self.big_dots[i]
-            screen_x = (self.map_offset_x + x * TILE_SIZE +
-                        TILE_SIZE // 2)
-            screen_y = (self.map_offset_y + y * TILE_SIZE +
-                        TILE_SIZE // 2)
+            screen_x = self.map_offset_x + x * TILE_SIZE + TILE_SIZE // 2
+            screen_y = self.map_offset_y + y * TILE_SIZE + TILE_SIZE // 2
 
             # Пульсирующий эффект
             pulse = math.sin(self.animation_timer * 0.2) * 0.3 + 0.7
@@ -413,7 +410,7 @@ class Game:
                 color = (64, 64, 64)
 
             exit_rect = pygame.Rect(screen_x + 3, screen_y + 3,
-                                     TILE_SIZE - 6, TILE_SIZE - 6)
+                                    TILE_SIZE - 6, TILE_SIZE - 6)
             pygame.draw.rect(self.screen, color, exit_rect)
             pygame.draw.rect(self.screen, WHITE, exit_rect, 2)
             i += 1
@@ -464,7 +461,7 @@ class Game:
             j = 0
             while j < num_points:
                 angle = math.radians(start_angle +
-                                      (mouth_angle * j / (num_points - 1)))
+                                     (mouth_angle * j / (num_points - 1)))
                 point_x = screen_x + radius * math.cos(angle)
                 point_y = screen_y + radius * math.sin(angle)
                 mouth_points.append((point_x, point_y))
@@ -495,9 +492,9 @@ class Game:
             color = ghost_colors[enemy.color % len(ghost_colors)]
 
             screen_x = (self.map_offset_x + enemy.x * TILE_SIZE +
-                         TILE_SIZE // 2)
+                        TILE_SIZE // 2)
             screen_y = (self.map_offset_y + enemy.y * TILE_SIZE +
-                         TILE_SIZE // 2)
+                        TILE_SIZE // 2)
 
             # Размер призрака
             size = TILE_SIZE // 2 - 1
@@ -507,7 +504,7 @@ class Game:
                                     size * 2, size * 2)
             pygame.draw.rect(self.screen, color, body_rect)
             pygame.draw.circle(self.screen, color,
-                                (screen_x, screen_y - size // 2), size)
+                               (screen_x, screen_y - size // 2), size)
 
             # Зубчатый низ призрака
             teeth_y = screen_y + size
@@ -520,7 +517,8 @@ class Game:
                 if j % 2 == 0:
                     tooth_points = [
                         (tooth_x, teeth_y),
-                        (tooth_x + tooth_width // 2, teeth_y - tooth_width // 2),
+                        (tooth_x + tooth_width // 2,
+                         teeth_y - tooth_width // 2),
                         (tooth_x + tooth_width, teeth_y)
                     ]
                     pygame.draw.polygon(self.screen, color, tooth_points)
@@ -534,9 +532,9 @@ class Game:
 
             # Белки глаз
             pygame.draw.circle(self.screen, WHITE, (left_eye_x, eyes_y),
-                                eye_size)
+                               eye_size)
             pygame.draw.circle(self.screen, WHITE, (right_eye_x, eyes_y),
-                                eye_size)
+                               eye_size)
 
             # Зрачки (смотрят на игрока если он рядом)
             pupil_size = 2
@@ -556,13 +554,13 @@ class Game:
                 pupil_x_offset, pupil_y_offset = 0, 0
 
             pygame.draw.circle(self.screen, BLACK,
-                                (left_eye_x + pupil_x_offset,
-                                 eyes_y + pupil_y_offset),
-                                pupil_size)
+                               (left_eye_x + pupil_x_offset,
+                                eyes_y + pupil_y_offset),
+                               pupil_size)
             pygame.draw.circle(self.screen, BLACK,
-                                (right_eye_x + pupil_x_offset,
-                                 eyes_y + pupil_y_offset),
-                                pupil_size)
+                               (right_eye_x + pupil_x_offset,
+                                eyes_y + pupil_y_offset),
+                               pupil_size)
             i += 1
 
     def _render_ui(self):
@@ -571,7 +569,7 @@ class Game:
         ui_rect = pygame.Rect(0, 0, WINDOW_WIDTH, 80)
         pygame.draw.rect(self.screen, BLACK, ui_rect)
         pygame.draw.line(self.screen, UI_COLOR, (0, 80),
-                          (WINDOW_WIDTH, 80), 2)
+                         (WINDOW_WIDTH, 80), 2)
 
         # Заголовок
         title_text = self.big_font.render("🟡 P A C M A N 🟡", True, UI_COLOR)
@@ -580,11 +578,11 @@ class Game:
 
         # Счетчики
         score_text = self.font.render(f"SCORE: {self.score:05d}",
-                                        True, SCORE_COLOR)
+                                      True, SCORE_COLOR)
         self.screen.blit(score_text, (20, 50))
 
         moves_text = self.font.render(f"MOVES: {self.moves_count}",
-                                        True, SCORE_COLOR)
+                                      True, SCORE_COLOR)
         self.screen.blit(moves_text, (250, 50))
 
         total_dots = len(self.dots) + len(self.big_dots)
@@ -595,7 +593,7 @@ class Game:
         # Нижняя панель с инструкциями
         bottom_y = WINDOW_HEIGHT - 50
         instruction_text = self.small_font.render(
-            "WASD / СТРЕЛКИ - движение  •  ESC - выход  • "
+            "WASD / СТРЕЛКИ - движение  •  ESC - выход  •  "
             "Собирайте все точки!",
             True, UI_COLOR)
         instruction_rect = instruction_text.get_rect(
@@ -606,20 +604,20 @@ class Game:
         if self.game_won:
             if self.victory_animation > 60:
                 # Анимация победы
-                flash_alpha = int(255 * abs(math.sin(self.animation_timer * 0.5)))
+                flash_alpha = int(255 * abs(math.sin(
+                    self.animation_timer * 0.5)))
                 win_color = (255, flash_alpha, 0)
             else:
                 win_color = UI_COLOR
 
             win_text = self.big_font.render(
-                f"🏆 VICTORY! FINAL SCORE: {self.score} 🏆",
-                True, win_color)
-            win_rect = win_text.get_rect(
-                center=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2))
+                f"🏆 VICTORY! FINAL SCORE: {self.score} 🏆", True, win_color)
+            win_rect = win_text.get_rect(center=(WINDOW_WIDTH // 2,
+                                                 WINDOW_HEIGHT // 2))
 
             # Фон для сообщения
             bg_rect = pygame.Rect(win_rect.x - 20, win_rect.y - 15,
-                                   win_rect.width + 40, win_rect.height + 30)
+                                  win_rect.width + 40, win_rect.height + 30)
             pygame.draw.rect(self.screen, BLACK, bg_rect)
             pygame.draw.rect(self.screen, win_color, bg_rect, 3)
 
@@ -627,14 +625,13 @@ class Game:
 
         elif self.game_lost:
             lose_text = self.big_font.render(
-                f"👻 GAME OVER! SCORE: {self.score} 👻",
-                True, RED_GHOST)
-            lose_rect = lose_text.get_rect(
-                center=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2))
+                f"👻 GAME OVER! SCORE: {self.score} 👻", True, RED_GHOST)
+            lose_rect = lose_text.get_rect(center=(WINDOW_WIDTH // 2,
+                                                   WINDOW_HEIGHT // 2))
 
             # Фон для сообщения
             bg_rect = pygame.Rect(lose_rect.x - 20, lose_rect.y - 15,
-                                   lose_rect.width + 40, lose_rect.height + 30)
+                                  lose_rect.width + 40, lose_rect.height + 30)
             pygame.draw.rect(self.screen, BLACK, bg_rect)
             pygame.draw.rect(self.screen, RED_GHOST, bg_rect, 3)
 
@@ -642,16 +639,15 @@ class Game:
 
         elif total_dots == 0:
             exit_text = self.font.render(
-                "✨ ALL DOTS COLLECTED! GO TO GREEN EXIT! ✨",
-                True, GREEN_EXIT)
-            exit_rect = exit_text.get_rect(
-                center=(WINDOW_WIDTH // 2, self.map_offset_y - 15))
+                "✨ ALL DOTS COLLECTED! GO TO GREEN EXIT! ✨", True, GREEN_EXIT)
+            exit_rect = exit_text.get_rect(center=(WINDOW_WIDTH // 2,
+                                                   self.map_offset_y - 15))
 
             # Мигающий фон
             if int(self.animation_timer / 15) % 2:
                 bg_rect = pygame.Rect(exit_rect.x - 10, exit_rect.y - 5,
-                                       exit_rect.width + 20,
-                                       exit_rect.height + 10)
+                                      exit_rect.width + 20,
+                                      exit_rect.height + 10)
                 pygame.draw.rect(self.screen, (0, 50, 0), bg_rect)
 
             self.screen.blit(exit_text, exit_rect)
@@ -739,8 +735,8 @@ class Enemy:
             else:
                 self.stuck_timer = 0
 
-    def _chase_player(self, game_map: List[List[str]], player, map_width: int,
-                      map_height: int):
+    def _chase_player(self, game_map: List[List[str]], player,
+                      map_width: int, map_height: int):
         """Преследование игрока"""
         directions = [Direction.UP, Direction.DOWN,
                       Direction.LEFT, Direction.RIGHT]
@@ -754,7 +750,7 @@ class Enemy:
             new_y = self.y + direction.value[1]
 
             if self._is_valid_move(new_x, new_y, game_map,
-                                    map_width, map_height):
+                                   map_width, map_height):
                 distance = abs(new_x - player.x) + abs(new_y - player.y)
                 if distance < min_distance:
                     min_distance = distance
@@ -792,7 +788,7 @@ class Enemy:
             new_y = self.y + direction.value[1]
 
             if self._is_valid_move(new_x, new_y, game_map,
-                                    map_width, map_height):
+                                   map_width, map_height):
                 valid_directions.append(direction)
             i += 1
 
@@ -816,7 +812,7 @@ class Enemy:
             new_y = self.y + direction.value[1]
 
             if self._is_valid_move(new_x, new_y, game_map,
-                                    map_width, map_height):
+                                   map_width, map_height):
                 self.x = new_x
                 self.y = new_y
                 self.direction = direction
@@ -824,7 +820,7 @@ class Enemy:
             i += 1
 
     def _is_valid_move(self, x: int, y: int, game_map: List[List[str]],
-                        map_width: int, map_height: int) -> bool:
+                       map_width: int, map_height: int) -> bool:
         """Проверяет валидность хода"""
         if x < 0 or x >= map_width or y < 0 or y >= map_height:
             return False
