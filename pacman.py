@@ -33,7 +33,6 @@ SCORE_COLOR = (255, 255, 255)
 
 
 class TileType(Enum):
-    """Типы тайлов на карте"""
     EMPTY = '0'
     WALL = '1'
     DOT = '.'
@@ -45,7 +44,6 @@ class TileType(Enum):
 
 
 class Direction(Enum):
-    """Направления движения"""
     UP = (0, -1)
     DOWN = (0, 1)
     LEFT = (-1, 0)
@@ -53,10 +51,8 @@ class Direction(Enum):
 
 
 class Game:
-    """Основной класс игры"""
 
     def __init__(self):
-        """Инициализация игры"""
         pygame.init()
 
         # Настройка окна
@@ -104,8 +100,6 @@ class Game:
         self._find_game_objects()
 
     def _load_classic_map(self):
-        """Загружает карту в классическом стиле Pacman с проходами ко всем
-        точкам и тремя призраками"""
         classic_map = [
             "1111111111111111111111111",
             "1............1..........1",
@@ -143,7 +137,6 @@ class Game:
             i += 1
 
     def _find_game_objects(self):
-        """Находит игровые объекты на карте"""
         self.dots = []
         self.big_dots = []
         self.exits = []
@@ -176,7 +169,6 @@ class Game:
             y += 1
 
     def handle_input(self):
-        """Улучшенная обработка ввода"""
         keys = pygame.key.get_pressed()
 
         # Определяем желаемое направление
@@ -207,7 +199,6 @@ class Game:
                 self.move_timer = MOVE_DELAY
 
     def _can_move_in_direction(self, direction: Direction) -> bool:
-        """Проверяет, можно ли двигаться в указанном направлении"""
         if not self.player:
             return False
 
@@ -223,7 +214,6 @@ class Game:
         return self.game_map[new_y][new_x] != TileType.WALL.value
 
     def _move_player(self, direction: Direction):
-        """Перемещение игрока"""
         if not self.player or self.game_won or self.game_lost:
             return
 
@@ -247,7 +237,6 @@ class Game:
         self._check_enemy_collision()
 
     def _check_dots(self):
-        """Проверка сбора обычных точек"""
         i = 0
         while i < len(self.dots):
             dot_x, dot_y = self.dots[i]
@@ -258,7 +247,6 @@ class Game:
                 i += 1
 
     def _check_big_dots(self):
-        """Проверка сбора больших точек"""
         i = 0
         while i < len(self.big_dots):
             dot_x, dot_y = self.big_dots[i]
@@ -271,7 +259,6 @@ class Game:
                 i += 1
 
     def _check_exits(self):
-        """Проверка достижения выхода"""
         # Выход активен только когда все точки собраны
         total_dots = len(self.dots) + len(self.big_dots)
         if total_dots == 0:
@@ -285,7 +272,6 @@ class Game:
                 i += 1
 
     def _check_enemy_collision(self):
-        """Проверка столкновения с врагами"""
         i = 0
         while i < len(self.enemies):
             enemy = self.enemies[i]
@@ -295,7 +281,6 @@ class Game:
             i += 1
 
     def update_enemies(self):
-        """Обновление поведения врагов"""
         if self.game_won or self.game_lost:
             return
 
@@ -306,7 +291,6 @@ class Game:
             i += 1
 
     def update_timers(self):
-        """Обновление таймеров"""
         if self.move_timer > 0:
             self.move_timer -= 1
 
@@ -317,8 +301,6 @@ class Game:
             self.victory_animation -= 1
 
     def render(self):
-        """Отрисовка игры"""
-        # Фон
         if self.screen_flash > 0:
             self.screen.fill(WHITE)
         else:
@@ -336,7 +318,6 @@ class Game:
         pygame.display.flip()
 
     def _render_map(self):
-        """Отрисовка карты в стиле классического Pacman"""
         y = 0
         while y < len(self.game_map):
             x = 0
@@ -362,7 +343,6 @@ class Game:
             y += 1
 
     def _render_dots(self):
-        """Отрисовка точек"""
         # Обычные точки
         i = 0
         while i < len(self.dots):
@@ -411,7 +391,6 @@ class Game:
             i += 1
 
     def _render_player(self):
-        """Отрисовка Pacman с красивой анимацией"""
         if not self.player:
             return
 
@@ -478,7 +457,6 @@ class Game:
         pygame.draw.circle(self.screen, BLACK, (eye_x, eye_y), 2)
 
     def _render_enemies(self):
-        """Отрисовка призраков в классическом стиле"""
         ghost_colors = [RED_GHOST, PINK_GHOST, CYAN_GHOST, ORANGE_GHOST]
 
         i = 0
@@ -531,7 +509,7 @@ class Game:
             pygame.draw.circle(self.screen, WHITE, (right_eye_x, eyes_y),
                                eye_size)
 
-            # Зрачки (смотрят на игрока если он рядом)
+            # Зрачки (смотрят на игроку если он рядом)
             pupil_size = 2
             pupil_offset = 1
 
@@ -559,7 +537,6 @@ class Game:
             i += 1
 
     def _render_ui(self):
-        """Красивый пользовательский интерфейс"""
         # Верхняя панель
         ui_rect = pygame.Rect(0, 0, WINDOW_WIDTH, 80)
         pygame.draw.rect(self.screen, BLACK, ui_rect)
@@ -648,7 +625,6 @@ class Game:
             self.screen.blit(exit_text, exit_rect)
 
     def run(self):
-        """Основной игровой цикл"""
         print("🟡 Добро пожаловать в PACMAN! 🟡")
         print("Управление: WASD или стрелки")
         print("Цель: собрать все точки и дойти до зеленого выхода")
@@ -685,8 +661,8 @@ class Game:
         pygame.quit()
         sys.exit()
 
+
 class Player:
-    """Класс игрока Pacman"""
 
     def __init__(self, x: int, y: int):
         self.x = x
@@ -695,7 +671,6 @@ class Player:
 
 
 class Enemy:
-    """Класс призрака-врага"""
 
     def __init__(self, x: int, y: int, color: int = 0):
         self.x = x
@@ -708,7 +683,6 @@ class Enemy:
 
     def update(self, game_map: List[List[str]], player, map_width: int,
                map_height: int):
-        """Обновление поведения призрака"""
         self.timer += 1
 
         # Определяем режим преследования
@@ -735,7 +709,6 @@ class Enemy:
 
     def _chase_player(self, game_map: List[List[str]], player,
                       map_width: int, map_height: int):
-        """Преследование игрока"""
         directions = [Direction.UP, Direction.DOWN,
                       Direction.LEFT, Direction.RIGHT]
         best_direction = None
@@ -762,7 +735,6 @@ class Enemy:
 
     def _wander(self, game_map: List[List[str]], map_width: int,
                 map_height: int):
-        """Случайное блуждание"""
         # Пробуем продолжить в текущем направлении
         new_x = self.x + self.direction.value[0]
         new_y = self.y + self.direction.value[1]
@@ -799,7 +771,6 @@ class Enemy:
 
     def _force_move(self, game_map: List[List[str]], map_width: int,
                     map_height: int):
-        """Принудительное движение при застревании"""
         directions = [Direction.UP, Direction.DOWN,
                       Direction.LEFT, Direction.RIGHT]
 
@@ -819,14 +790,12 @@ class Enemy:
 
     def _is_valid_move(self, x: int, y: int, game_map: List[List[str]],
                        map_width: int, map_height: int) -> bool:
-        """Проверяет валидность хода"""
         if x < 0 or x >= map_width or y < 0 or y >= map_height:
             return False
         return game_map[y][x] != TileType.WALL.value
 
 
 def main():
-    """Основная функция"""
     try:
         game = Game()
         game.run()
