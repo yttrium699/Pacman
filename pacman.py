@@ -657,12 +657,16 @@ class Game:
 
         while self.running:
             # Обработка событий
-            for event in pygame.event.get():
+            events = pygame.event.get()
+            i = 0
+            while i < len(events):
+                event = events[i]
                 if event.type == pygame.QUIT:
                     self.running = False
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         self.running = False
+                i += 1
 
             # Обновление игры
             self.handle_input()
@@ -680,7 +684,6 @@ class Game:
 
         pygame.quit()
         sys.exit()
-
 
 class Player:
     """Класс игрока Pacman"""
