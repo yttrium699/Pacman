@@ -583,7 +583,7 @@ class Game:
                 win_color = UI_COLOR
 
             win_text = self.big_font.render(
-                f"🏆 VICTORY! FINAL SCORE: {self.score} 🏆", True, win_color)
+                f" VICTORY! FINAL SCORE: {self.score} ", True, win_color)
             win_rect = win_text.get_rect(center=(WINDOW_WIDTH // 2,
                                                  WINDOW_HEIGHT // 2))
 
@@ -597,7 +597,7 @@ class Game:
 
         elif self.game_lost:
             lose_text = self.big_font.render(
-                f"👻 GAME OVER! SCORE: {self.score} 👻", True, RED_GHOST)
+                f" GAME OVER! SCORE: {self.score} ", True, RED_GHOST)
             lose_rect = lose_text.get_rect(center=(WINDOW_WIDTH // 2,
                                                    WINDOW_HEIGHT // 2))
 
@@ -611,7 +611,7 @@ class Game:
 
         elif total_dots == 0:
             exit_text = self.font.render(
-                "✨ ALL DOTS COLLECTED! GO TO GREEN EXIT! ✨", True, GREEN_EXIT)
+                " ALL DOTS COLLECTED! GO TO GREEN EXIT! ", True, GREEN_EXIT)
             exit_rect = exit_text.get_rect(center=(WINDOW_WIDTH // 2,
                                                    self.map_offset_y - 15))
 
@@ -625,7 +625,7 @@ class Game:
             self.screen.blit(exit_text, exit_rect)
 
     def run(self):
-        print("🟡 Добро пожаловать в PACMAN! 🟡")
+        print(" Добро пожаловать в PACMAN! ")
         print("Управление: WASD или стрелки")
         print("Цель: собрать все точки и дойти до зеленого выхода")
         print("Избегайте красных призраков!")
