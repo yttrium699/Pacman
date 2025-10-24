@@ -58,7 +58,7 @@ class Game:
         # Настройка окна
         self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         pygame.display.set_caption(
-            "🟡 PACMAN GAME 🟡 - WASD движение, ESC выход")
+            " PACMAN GAME  - WASD движение, ESC выход")
 
         # Шрифты
         self.big_font = pygame.font.Font(None, 48)
@@ -544,7 +544,7 @@ class Game:
                          (WINDOW_WIDTH, 80), 2)
 
         # Заголовок
-        title_text = self.big_font.render("🟡 P A C M A N 🟡", True, UI_COLOR)
+        title_text = self.big_font.render(" P A C M A N ", True, UI_COLOR)
         title_rect = title_text.get_rect(center=(WINDOW_WIDTH // 2, 25))
         self.screen.blit(title_text, title_rect)
 
